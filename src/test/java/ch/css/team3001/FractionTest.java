@@ -50,4 +50,10 @@ class FractionTest {
         Fraction negativeFraction = new Fraction(-1, 1).plus(new Fraction(1,1));
         assertThat(negativeFraction).isEqualTo(new Fraction(0,1));
     }
+
+    @Test
+    void positiveNumeratorAndNegativeDenominator() {
+        Fraction negativeFraction = new Fraction(1, -7).plus(new Fraction(1,8));
+        assertThat(negativeFraction).isEqualTo(new Fraction(-1,56));
+    }
 }
