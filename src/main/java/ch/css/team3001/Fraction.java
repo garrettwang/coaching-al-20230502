@@ -1,8 +1,10 @@
 package ch.css.team3001;
 
+import java.util.Objects;
+
 class Fraction {
-    private int numerator;
-    private int denominator;
+    private final int numerator;
+    private final int denominator;
 
     public Fraction(int integerValue) {
         this.numerator = integerValue;
@@ -15,18 +17,19 @@ class Fraction {
     }
 
     public Fraction plus(Fraction that) {
-        return new Fraction(this.numerator + that.numerator, that.denominator());
+        return new Fraction(this.numerator + that.numerator, that.denominator);
     }
 
-    public int intValue() {
-        return numerator;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fraction fraction = (Fraction) o;
+        return numerator == fraction.numerator && denominator == fraction.denominator;
     }
 
-    public int numerator() {
-        return this.numerator;
-    }
-
-    public int denominator() {
-        return this.denominator;
+    @Override
+    public int hashCode() {
+        return Objects.hash(numerator, denominator);
     }
 }
