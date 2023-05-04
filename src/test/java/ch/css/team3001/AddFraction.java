@@ -1,7 +1,6 @@
 package ch.css.team3001;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class AddFraction {
@@ -35,33 +34,4 @@ class AddFraction {
         Assertions.assertThat(sum.denominator()).isEqualTo(5);
     }
 
-    private class Fraction {
-        private int numerator;
-        private int denominator;
-
-        public Fraction(int integerValue) {
-            this.numerator = integerValue;
-        }
-
-        public Fraction(int numerator, int denominator) {
-            this.numerator = numerator;
-            this.denominator = denominator;
-        }
-
-        public Fraction plus(Fraction that) {
-            return new Fraction(this.numerator + that.numerator, that.denominator());
-        }
-
-        public int intValue() {
-            return numerator;
-        }
-
-        public int numerator() {
-            return this.numerator;
-        }
-
-        public int denominator() {
-            return this.denominator;
-        }
-    }
 }
