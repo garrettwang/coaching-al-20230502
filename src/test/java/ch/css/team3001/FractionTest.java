@@ -8,6 +8,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class FractionTest {
     public static Stream<Arguments> integerFractionTestdataProvider() {
         return Stream.of(
@@ -22,24 +24,30 @@ class FractionTest {
     @MethodSource(value = "integerFractionTestdataProvider")
     void notZeroPlusNotZero(Fraction firstFraction, Fraction secondFraction, Fraction expectedFraction) {
         Fraction sum = firstFraction.plus(secondFraction);
-        Assertions.assertThat(sum).isEqualTo(expectedFraction);
+        assertThat(sum).isEqualTo(expectedFraction);
     }
 
     @Test
     void onefifthPlusThreefifth() {
         Fraction sum = new Fraction(1, 5).plus(new Fraction(3,5));
-        Assertions.assertThat(sum).isEqualTo(new Fraction(4,5));
+        assertThat(sum).isEqualTo(new Fraction(4,5));
     }
 
     @Test
     void coprimeFractions() {
         Fraction sum = new Fraction(5, 7).plus(new Fraction(1,4));
-        Assertions.assertThat(sum).isEqualTo(new Fraction(27,28));
+        assertThat(sum).isEqualTo(new Fraction(27,28));
     }
 
     @Test
     void zeroDenominator() {
         Assertions.assertThatThrownBy(() -> new Fraction(1, 0))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void negativeNumeratorAndPositveDenominator() {
+        Fraction negativeFraction = new Fraction(-1, 1).plus(new Fraction(1,1));
+        assertThat(negativeFraction).isEqualTo(new Fraction(0,1));
     }
 }
