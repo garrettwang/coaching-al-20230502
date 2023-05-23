@@ -110,11 +110,14 @@ public class SellOneItemTest {
 
         public void onBarcode(Barcode barcode) {
 
+            display.setText(priceBy(barcode));
+        }
+
+        private String priceBy(Barcode barcode) {
             if (pricesByBarcode.containsKey(barcode.value())) {
-                final String text = pricesByBarcode.get(barcode.value());
-                display.setText(text);
+                return pricesByBarcode.get(barcode.value());
             } else {
-                display.setText("Product not found: " + barcode);
+                return "Product not found: " + barcode;
             }
         }
     }
