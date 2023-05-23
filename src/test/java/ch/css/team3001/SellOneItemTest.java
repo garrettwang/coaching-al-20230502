@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.util.Collections.emptyMap;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,6 +53,11 @@ public class SellOneItemTest {
     }
 
     @Test
+    void barcodeIsNull() {
+        assertThatThrownBy(() -> new Barcode(null)).isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
     void barcodeNotEmpty() {
         final Barcode actual = new Barcode("123");
         assertThat(actual.value()).isEqualTo("123");
@@ -61,6 +67,7 @@ public class SellOneItemTest {
         private final String value;
 
         public Barcode(final String value) {
+            Objects.requireNonNull(value);
             if (value.isEmpty()) {
                 throw new IllegalArgumentException();
             }
