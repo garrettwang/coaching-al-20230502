@@ -18,7 +18,7 @@ public class SellOneItemTest {
             put("23456", "CAD 12.50");
         }});
 
-        sale.onBarcode("12345");
+        sale.onBarcode(new Barcode("12345"));
 
         assertThat(display.text()).isEqualTo("CAD 7.95");
     }
@@ -30,7 +30,7 @@ public class SellOneItemTest {
             put("12345", "CAD 7.95");
             put("23456", "CAD 12.50");
         }});
-        sale.onBarcode("23456");
+        sale.onBarcode(new Barcode("23456"));
 
 
         assertThat(display.text()).isEqualTo("CAD 12.50");
@@ -44,16 +44,6 @@ public class SellOneItemTest {
         sale.onBarcode(new Barcode("9999"));
 
         assertThat(display.text()).isEqualTo("Product not found: 9999");
-    }
-
-    @Test
-    void emptyBarcode() {
-        final Display display = new Display();
-        final Sale sale = new Sale(display, null);
-
-        sale.onBarcode("");
-
-        assertThat(display.text()).isEqualTo("Scanning error: empty barcode");
     }
 
     @Test
@@ -109,20 +99,6 @@ public class SellOneItemTest {
         public Sale(final Display display, final Map<String, String> pricesByBarcode) {
             this.pricesByBarcode = pricesByBarcode;
             this.display = display;
-        }
-
-        public void onBarcode(final String barcode) {
-            if ("".equals(barcode)) {
-                display.setText("Scanning error: empty barcode");
-                return;
-            }
-
-            if (pricesByBarcode.containsKey(barcode)) {
-                final String text = pricesByBarcode.get(barcode);
-                display.setText(text);
-            } else {
-                display.setText("Product not found: " + barcode);
-            }
         }
 
         public void onBarcode(Barcode barcode) {
