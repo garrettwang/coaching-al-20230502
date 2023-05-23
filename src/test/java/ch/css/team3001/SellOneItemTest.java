@@ -23,19 +23,6 @@ public class SellOneItemTest {
         assertThat(display.text()).isEqualTo("CAD 7.95");
     }
 
-
-    @Test
-    void productFoundNew() {
-        final Display display = new Display();
-        final Sale sale = new Sale(display, new HashMap<>() {{
-            put("12345", "CAD 7.95");
-            put("23456", "CAD 12.50");
-        }});
-
-        sale.onBarcode(new Barcode("12345"));
-
-        assertThat(display.text()).isEqualTo("CAD 7.95");
-    }
     @Test
     void anotherProductFound() {
         final Display display = new Display();
@@ -54,7 +41,7 @@ public class SellOneItemTest {
         final Display display = new Display();
         final Sale sale = new Sale(display, emptyMap());
 
-        sale.onBarcode("9999");
+        sale.onBarcode(new Barcode("9999"));
 
         assertThat(display.text()).isEqualTo("Product not found: 9999");
     }
@@ -91,6 +78,11 @@ public class SellOneItemTest {
         }
 
         public String value() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
             return value;
         }
     }
